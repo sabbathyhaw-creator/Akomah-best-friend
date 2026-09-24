@@ -118,18 +118,15 @@ function ytCommand(func, args){
 }
 
 function playPurpose(){
-  ytCommand('playVideo');
-  ytCommand('unMute');
-  ytCommand('setVolume', [100]);
-  document.getElementById('musicGate').style.display = 'none';
-  music.textContent = '🎵 Purpose is playing... 💕';
-}
-
-document.getElementById('start').onclick = playPurpose;
-music.onclick = playPurpose;
+ player.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}),'*');
+ player.contentWindow.postMessage(JSON.stringify({event:'command',func:'unMute',args:[]}),'*');
+ player.contentWindow.postMessage(JSON.stringify({event:'command',func:'setVolume',args:[100]}),'*');
+ document.getElementById('musicGate').style.display='none';
+ music.textContent='🎵 Purpose is playing... 💕';
 }
 document.getElementById('start').onclick=playPurpose;
 music.onclick=playPurpose;
+
 
 function heart(){
  const h=document.createElement('div');
