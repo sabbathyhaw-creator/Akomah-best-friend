@@ -110,12 +110,23 @@ yes.onclick=()=>{
 };
 document.getElementById('close').onclick=()=>success.classList.add('hide');
 
+function ytCommand(func, args){
+  player.contentWindow.postMessage(
+    JSON.stringify({event:'command', func:func, args:args||[]}),
+    '*'
+  );
+}
+
 function playPurpose(){
- player.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}),'*');
- player.contentWindow.postMessage(JSON.stringify({event:'command',func:'unMute',args:[]}),'*');
- player.contentWindow.postMessage(JSON.stringify({event:'command',func:'setVolume',args:[100]}),'*');
- document.getElementById('musicGate').style.display='none';
- music.textContent='🎵 Purpose is playing... 💕';
+  ytCommand('playVideo');
+  ytCommand('unMute');
+  ytCommand('setVolume', [100]);
+  document.getElementById('musicGate').style.display = 'none';
+  music.textContent = '🎵 Purpose is playing... 💕';
+}
+
+document.getElementById('start').onclick = playPurpose;
+music.onclick = playPurpose;
 }
 document.getElementById('start').onclick=playPurpose;
 music.onclick=playPurpose;
